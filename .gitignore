@@ -1,0 +1,15 @@
+**/keys/
+
+# Ignore all .terraform directories
+**/.terraform/
+
+# Ignore all files starting with 'terraform' (case-sensitive)
+*.terraform*
+
+# Ignore all files starting with 'terraform' (case-sensitive)
+terraform*
+
+# Optional: also ignore backup files or local overrides
+*.tfstate
+*.tfstate.backup
+*.tfvars
