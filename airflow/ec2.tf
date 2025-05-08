@@ -38,7 +38,7 @@ resource "aws_instance" "airflow_instance" {
   instance_market_options {
     market_type = "spot"
     spot_options {
-      max_price = 0.03
+      max_price = 0.038
     }
   }
 
