@@ -1,18 +1,15 @@
-from airflow import DAG
-from airflow.operators.python import PythonOperator
-from datetime import datetime
+import datetime
+from airflow.models.dag import DAG
+from airflow.operators.empty import EmptyOperator
 
-def hello_world():
-    print("Hello from Airflow!")
-
+# Define the DAG
 with DAG(
-    dag_id="safe_test_dag",
-    start_date=datetime(2025, 5, 11),
-    schedule="*/1 * * * *",  # Every 5 minutes
-    catchup=False,
-    tags=["example"],
+    dag_id="simple_dag",
+    start_date=datetime.datetime(2023, 1, 1),
+    schedule="@daily",  # Example: Run daily
+    catchup=False,  # Do not backfill historical runs
 ) as dag:
-    hello_task = PythonOperator(
-        task_id="hello_task",
-        python_callable=hello_world,
+    # Define a task
+    task_1 = EmptyOperator(
+        task_id="my_task",
     )
