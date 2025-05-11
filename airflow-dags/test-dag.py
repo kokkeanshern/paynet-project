@@ -2,7 +2,7 @@ import datetime
 from airflow.models.dag import DAG
 from airflow.operators.empty import EmptyOperator
 
-# Define the DAG
+# Dummy comment
 with DAG(
     dag_id="simple_dag",
     start_date=datetime.datetime(2023, 1, 1),
