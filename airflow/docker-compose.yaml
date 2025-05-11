@@ -1,5 +1,5 @@
-# Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
+# Licensed to the Apache Software Foundation (ASF) under one
 # distributed with this work for additional information
 # regarding copyright ownership.  The ASF licenses this file
 # to you under the Apache License, Version 2.0 (the
@@ -48,6 +48,7 @@ x-airflow-common: &airflow-common
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'true'
     AIRFLOW__API__AUTH_BACKEND: 'airflow.api.auth.backend.basic_auth'
+    AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS: 'true'
   volumes:
     - ./dags:/opt/airflow/dags
     - ./logs:/opt/airflow/logs
@@ -108,9 +109,6 @@ services:
     environment:
       <<: *airflow-common-env
       _AIRFLOW_DB_MIGRATE: 'true'
-      _AIRFLOW_WWW_USER_CREATE: 'true'
-      _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
-      _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
 
   flower:
     <<: *airflow-common
@@ -126,22 +124,6 @@ services:
       timeout: 10s
       retries: 5
     restart: always
-  
-  airflow-create-user:
-    <<: *airflow-common
-    command: >
-      bash -c "
-        airflow users create
-          --username ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
-          --password ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
-          --firstname Admin
-          --lastname User
-          --role Admin
-          --email admin@example.com
-      "
-    depends_on:
-      airflow-init:
-        condition: service_completed_successfully
 
 volumes:
   postgres-db-volume:

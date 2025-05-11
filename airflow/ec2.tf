@@ -38,7 +38,7 @@ resource "aws_instance" "airflow_instance" {
   instance_market_options {
     market_type = "spot"
     spot_options {
-      max_price = 0.038
+      max_price = 0.05
     }
   }
 
@@ -46,6 +46,7 @@ resource "aws_instance" "airflow_instance" {
               #!/bin/bash
               yum update -y
               yum install -y docker
+              yum -y install python-pip
               service docker start
 
               curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
