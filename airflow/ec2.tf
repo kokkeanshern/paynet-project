@@ -52,12 +52,13 @@ resource "aws_instance" "airflow_instance" {
               curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
               chmod +x /usr/local/bin/docker-compose
 
-              mkdir -p /home/ec2-user/dags /home/ec2-user/logs /home/ec2-user/plugins
+              mkdir -p /home/ec2-user/dags /home/ec2-user/logs /home/ec2-user/config /home/ec2-user/plugins
               cd /home/ec2-user
               aws s3 cp s3://my-airflow-assets/docker-compose.yaml docker-compose.yaml
               echo -e "AIRFLOW_UID=$(id -u ec2-user)\nAIRFLOW_GID=0" > .env
               chown ec2-user:ec2-user .env docker-compose.yaml dags logs plugins
 
+              runuser -l ec2-user -c "sudo docker compose run airflow-cli airflow config list"
               runuser -l ec2-user -c "sudo docker-compose up airflow-init"
               runuser -l ec2-user -c "sudo docker-compose up -d"
               EOF
