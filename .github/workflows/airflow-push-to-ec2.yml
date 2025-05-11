@@ -21,4 +21,4 @@ jobs:
 
       - name: Sync airflow-dags to EC2
         run: |
-          scp -r airflow-dags/* ec2-user@YOUR.EC2.IP:/home/ec2-user/dags/
+          scp -r airflow-dags/* ec2-user@18.141.180.224:/home/ec2-user/dags/
