@@ -12,7 +12,6 @@ with DAG(
     catchup=False,
     tags=["kkok"],
 ) as dag:
-    # Define a task
     task_1 = EmptyOperator(
         task_id="my_task",
     )
