@@ -8,6 +8,7 @@ with DAG(
     start_date=datetime.datetime(2023, 1, 1),
     schedule="@daily",  # Example: Run daily
     catchup=False,  # Do not backfill historical runs
+    tags=["kkok"],
 ) as dag:
     # Define a task
     task_1 = EmptyOperator(
