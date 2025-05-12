@@ -1,13 +1,15 @@
 import datetime
 from airflow.models.dag import DAG
 from airflow.operators.empty import EmptyOperator
+from pathlib import Path
 
-# Dummy comment
+DAG_ID = Path(__file__).stem
+
 with DAG(
-    dag_id="simple_dag",
+    dag_id=DAG_ID,
     start_date=datetime.datetime(2023, 1, 1),
-    schedule="@daily",  # Example: Run daily
-    catchup=False,  # Do not backfill historical runs
+    schedule="*/2 * * * *",
+    catchup=False,
     tags=["kkok"],
 ) as dag:
     # Define a task
