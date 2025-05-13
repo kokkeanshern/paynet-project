@@ -35,12 +35,12 @@ resource "aws_instance" "airflow_instance" {
 
   iam_instance_profile = aws_iam_instance_profile.ec2_instance_profile.name
 
-  instance_market_options {
-    market_type = "spot"
-    spot_options {
-      max_price = 0.0477
-    }
-  }
+  # instance_market_options {
+  #   market_type = "spot"
+  #   spot_options {
+  #     max_price = 0.0477
+  #   }
+  # }
 
   user_data = <<-EOF
               #!/bin/bash
